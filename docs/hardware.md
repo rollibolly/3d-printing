@@ -6,7 +6,7 @@ Derived from the config on 2026-09-29; items marked **(?)** are guesses to confi
 |---|---|
 | Frame | Voron 2.4, 350×350 build, Z max 340 |
 | Host | Raspberry Pi CM4, Debian 13 (trixie), user `rollibolly` |
-| Mainboard | STM32 board with BTT Octopus pinout **(?)**, running as USB-CAN bridge (`can0`, 1 Mbit, gs_usb), uuid `5d91cd650d3f` |
+| Mainboard | STM32 board; pinout matches BTT Manta M8P v2 (CM4 on board) **(?)**, not Octopus, running as USB-CAN bridge (`can0`, 1 Mbit, gs_usb), uuid `5d91cd650d3f` |
 | Toolhead board | BTT EBB SB2209 (RP2040) over CAN, uuid `a03500b699cc` |
 | Toolhead | Stealthburner **(?)**, extruder gear ratio 50:10 (Clockwork 2 **(?)**) |
 | Hotend | Phaetus Dragon HF **(?)**, PT100 via MAX31865 (2-wire), max 280 °C |

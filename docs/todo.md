@@ -1,15 +1,17 @@
 # Findings / TODO
 
-Things noticed while importing the config on 2026-09-29. Nothing changed yet.
+## Done (2026-09-29 cleanup)
+- Split printer.cfg into `hardware/*.cfg` and `macros/{printing,leveling,parking}.cfg`; dropped 250/300mm alternates.
+- Folded the EBB sample file into `hardware/toolhead.cfg` (no more duplicated `[fan]`, `[heater_fan hotend_fan]`,
+  `[tmc2209 extruder]`; effective values unchanged, extruder stays in spreadCycle).
+- Removed KAMP adaptive meshing (was already overridden; native `ADAPTIVE=1` does it) and unused files:
+  `clean_nozzle.cfg`, `print_area_bed_mesh.cfg`, `timelapse.cfg`, `KAMP/KAMP_Settings.cfg`, `KAMP/Adaptive_Meshing.cfg`.
+- `resonance_tester` probe point -> bed center (175,175); `PRINT_END` parks at rear center of the 350 bed;
+  `G32` uses axis limits; `PRINT_START` no longer re-waits for the bed.
 
-- **KAMP adaptive meshing is overridden.** `macros/printing.cfg` defines `[gcode_macro BED_MESH_CALIBRATE]`,
-  included after KAMP, so it replaces KAMP's macro. Meshing still adapts because `PRINT_START` calls
-  `BED_MESH_CALIBRATE ADAPTIVE=1` (Klipper's native adaptive mesh), so KAMP's meshing file is redundant.
-- **Duplicate settings from printer.cfg vs the EBB sample file**: `[fan]`, `[heater_fan hotend_fan]`, and
-  `[tmc2209 extruder]` are in both; the sample sets `stealthchop_threshold: 999999`, printer.cfg sets `0`
-  (printer.cfg wins, being later). Worth folding into a single `toolhead.cfg`.
-- **Unused files** (not included anywhere): `clean_nozzle.cfg`, `print_area_bed_mesh.cfg`,
-  `KAMP/KAMP_Settings.cfg`, `timelapse.cfg` (also points at `/home/biqu/...`, wrong user).
-- `[resonance_tester] probe_points: 100,100,20` — for a 350 bed, the center is 175,175.
-- `PRINT_END` parks at X125 Y250 (250-size values); `PRINT_START` heats the bed twice and has no heat soak / chamber wait.
-- Possible reorganization: split `printer.cfg` into `hardware/*.cfg` (steppers, toolhead, fans, lights) + `macros/*.cfg`.
+## Open
+- `PRINT_START`: add heat soak / chamber temperature wait, material-dependent behavior (pass MATERIAL/CHAMBER from Orca).
+- `SMART_PARK` (KAMP) is included but unused; could park near the print while the nozzle heats in PRINT_START.
+- `moonraker.conf`: `192.168.0.0/16` listed twice in `trusted_clients`.
+- `fan_generic 4W_FAN0` on the EBB: confirm whether anything is connected, else remove.
+- Confirm mainboard model (see docs/hardware.md).
