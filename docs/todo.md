@@ -14,4 +14,6 @@
 - `SMART_PARK` (KAMP) is included but unused; could park near the print while the nozzle heats in PRINT_START.
 - `moonraker.conf`: `192.168.0.0/16` listed twice in `trusted_clients`.
 - `fan_generic 4W_FAN0` on the EBB: confirm whether anything is connected, else remove.
-- Confirm mainboard model (see docs/hardware.md).
+- **Pi: set `allow-hotplug can0`** in /etc/network/interfaces.d/can0 (currently `auto can0`). The M8P is the
+  USB-CAN bridge; any MCU reset (FIRMWARE_RESTART, or Klipper auto-reset on config CRC change after a deploy)
+  re-enumerates USB and can0 stays DOWN until `sudo ip link set can0 up type can bitrate 1000000`.

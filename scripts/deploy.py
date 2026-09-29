@@ -92,7 +92,7 @@ def klippy_state():
         return "unreachable", ""
 
 
-def wait_for_klipper(timeout=90):
+def wait_for_klipper(timeout=120):
     time.sleep(3)
     deadline = time.time() + timeout
     state, msg = klippy_state()
@@ -230,6 +230,10 @@ def main():
             state, msg = wait_for_klipper()
             if state != "ready":
                 print(f"\nKlipper failed to start ({state}):\n{msg}\n")
+                if state == "startup" or "Unable to connect" in msg:
+                    print("Klipper can't reach its MCUs. If the mainboard (USB-CAN bridge) was reset for a\n"
+                          "config CRC change, check `ssh voron ip -br link show can0` is UP; the Pi needs\n"
+                          "`allow-hotplug can0` in /etc/network/interfaces.d/can0.\n")
                 print("Rolling back to the previous printer files...")
                 for path in added:
                     sync.delete(path)
