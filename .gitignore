@@ -1,0 +1,6 @@
+# Large / volatile stuff pulled for analysis, not for history
+logs/
+*.gcode
+*.bgcode
+__pycache__/
+.venv/

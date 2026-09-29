@@ -1,0 +1,6 @@
+# Klipper runs on Linux: keep everything LF so pushes don't inject CRLF
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.stl binary
+*.3mf binary
