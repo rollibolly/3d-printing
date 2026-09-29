@@ -1,0 +1,30 @@
+{
+    "compatible_printers": [
+        "Voron Voron 2.4 350 0.4 nozzle"
+    ],
+    "filament_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "filament_settings_id": [
+        "PETG PolyLite Custom"
+    ],
+    "from": "User",
+    "hot_plate_temp": [
+        "75"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "75"
+    ],
+    "inherits": "PolyLite PETG @System",
+    "name": "PETG PolyLite Custom",
+    "nozzle_temperature": [
+        "235"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "240"
+    ],
+    "nozzle_temperature_range_high": [
+        "240"
+    ],
+    "version": "2.3.2.60"
+}

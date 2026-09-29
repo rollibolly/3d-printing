@@ -1,0 +1,39 @@
+{
+    "enable_pressure_advance": [
+        "1"
+    ],
+    "fan_min_speed": [
+        "30"
+    ],
+    "filament_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "filament_flow_ratio": [
+        "0.95"
+    ],
+    "filament_retraction_length": [
+        "0.2"
+    ],
+    "filament_settings_id": [
+        "ASA ReForm - rApollo"
+    ],
+    "filament_type": [
+        "ASA"
+    ],
+    "filament_vendor": [
+        "Form Futura"
+    ],
+    "from": "User",
+    "inherits": "Generic ABS template @Voron Voron 2.4 350 0.4 nozzle",
+    "name": "ASA ReForm - rApollo",
+    "nozzle_temperature": [
+        "245"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "250"
+    ],
+    "nozzle_temperature_range_high": [
+        "260"
+    ],
+    "version": "1.7.0.2"
+}

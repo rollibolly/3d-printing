@@ -1,0 +1,36 @@
+{
+    "enable_pressure_advance": [
+        "1"
+    ],
+    "filament_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "filament_max_volumetric_speed": [
+        "24"
+    ],
+    "filament_settings_id": [
+        "PLA EasyFil ePLA Mate Black"
+    ],
+    "filament_vendor": [
+        "Form Futura"
+    ],
+    "from": "User",
+    "hot_plate_temp": [
+        "65"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "70"
+    ],
+    "inherits": "Generic PLA template @Voron Voron 2.4 350 0.4 nozzle",
+    "name": "PLA EasyFil ePLA Mate Black",
+    "nozzle_temperature_initial_layer": [
+        "230"
+    ],
+    "pressure_advance": [
+        "0.04"
+    ],
+    "slow_down_layer_time": [
+        "10"
+    ],
+    "version": "1.7.0.2"
+}

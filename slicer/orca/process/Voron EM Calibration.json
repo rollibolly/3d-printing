@@ -1,0 +1,29 @@
+{
+    "bottom_shell_layers": "2",
+    "brim_type": "no_brim",
+    "default_acceleration": "3000",
+    "exclude_object": "1",
+    "from": "User",
+    "inherits": "process template @Voron Voron 2.4 350 0.4 nozzle",
+    "initial_layer_line_width": "0.48",
+    "initial_layer_print_height": "0.25",
+    "inner_wall_acceleration": "3000",
+    "inner_wall_speed": "200",
+    "name": "Voron EM Calibration",
+    "outer_wall_speed": "120",
+    "print_extruder_id": [
+        "1"
+    ],
+    "print_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "print_settings_id": "Voron EM Calibration",
+    "skirt_loops": "6",
+    "sparse_infill_density": "30%",
+    "sparse_infill_pattern": "grid",
+    "top_shell_layers": "11",
+    "travel_acceleration": "5000",
+    "travel_speed": "300",
+    "version": "1.7.0.2",
+    "wall_loops": "4"
+}

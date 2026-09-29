@@ -11,10 +11,12 @@ config/          Mirror of ~/printer_data/config on the printer (the live Klippe
   KAMP/            Klipper Adaptive Meshing & Purging (copied files, not the symlinked upstream)
   led_effects/     Stealthburner LED effects
   moonraker.conf, crowsnest.conf, sonar.conf, KlipperScreen.conf
-scripts/         Tooling that runs on this PC (sync.py: pull/push config via Moonraker API)
+scripts/         Tooling that runs on this PC
+  sync.py          pull/push printer config via Moonraker API
+  export_orca.py   copy OrcaSlicer Voron profiles into slicer/orca/
 docs/            Hardware notes, wiring, decisions, TODOs
 calibration/     (when needed) input shaper graphs, PA/flow tests, PID results, with dates
-slicer/          (when needed) exported slicer printer/filament/process profiles
+slicer/orca/     OrcaSlicer user profiles (machine / filament / process), exported from %APPDATA%
 prints/          (when needed) notes & analysis from monitored prints
 ```
 
@@ -25,7 +27,10 @@ python scripts/sync.py pull      # printer -> repo, then review `git diff` and c
 python scripts/sync.py status    # what differs between printer and repo
 python scripts/sync.py push      # repo -> printer (changed files), then:
 python scripts/sync.py restart   # RESTART klipper to load the config
+python scripts/export_orca.py    # after changing profiles in Orca
 ```
+
+SSH: `ssh voron` (key `~/.ssh/voron_ed25519`, alias in `~/.ssh/config`).
 
 Rules of thumb:
 - **Pull and commit before editing**, so changes made from Mainsail or by `SAVE_CONFIG` are captured separately from ours.
