@@ -4,8 +4,8 @@
 Usage:
     python scripts/sync.py pull            # printer -> repo (config/)
     python scripts/sync.py status          # show files that differ between printer and repo
-    python scripts/sync.py push [FILE...]  # repo -> printer (all changed files, or only the given ones)
-    python scripts/sync.py restart         # FIRMWARE_RESTART-free Klipper config reload (RESTART)
+
+Deploying (repo -> printer) is done by scripts/deploy.py, which reuses these helpers.
 
 Only files that Moonraker reports as writable are tracked; read-only entries are
 symlinks into upstream repos (mainsail.cfg, KAMP/Configuration/...) and are
@@ -102,40 +102,22 @@ def cmd_status(args):
         print("in sync")
 
 
-def upload(path):
+def upload(path, content):
     boundary = uuid.uuid4().hex
     parent, name = path.rsplit("/", 1) if "/" in path else ("", path)
-    content = norm((CONFIG_DIR / path).read_bytes())
     parts = [
         f'--{boundary}\r\nContent-Disposition: form-data; name="root"\r\n\r\nconfig\r\n',
         f'--{boundary}\r\nContent-Disposition: form-data; name="path"\r\n\r\n{parent}\r\n',
         f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{name}"\r\n'
         "Content-Type: application/octet-stream\r\n\r\n",
     ]
-    body = "".join(parts).encode() + content + f"\r\n--{boundary}--\r\n".encode()
+    body = "".join(parts).encode() + norm(content) + f"\r\n--{boundary}--\r\n".encode()
     api("/server/files/upload", data=body,
         headers={"Content-Type": f"multipart/form-data; boundary={boundary}"}, method="POST")
 
 
-def cmd_push(args):
-    if args.files:
-        targets = [Path(f).resolve().relative_to(CONFIG_DIR).as_posix() if Path(f).exists()
-                   else f for f in args.files]
-    else:
-        changed, _, only_local = diff_state()
-        targets = changed + only_local
-    if not targets:
-        print("nothing to push")
-        return
-    for path in targets:
-        upload(path)
-        print(f"pushed  {path}")
-    print("Run `python scripts/sync.py restart` (or RESTART in the console) to load the changes.")
-
-
-def cmd_restart(args):
-    api("/printer/gcode/script?script=RESTART", method="POST")
-    print("RESTART sent")
+def delete(path):
+    api("/server/files/config/" + urllib.parse.quote(path), method="DELETE")
 
 
 def main():
@@ -145,10 +127,6 @@ def main():
     p.add_argument("--prune", action="store_true", help="delete repo files no longer on the printer")
     p.set_defaults(func=cmd_pull)
     sub.add_parser("status").set_defaults(func=cmd_status)
-    p = sub.add_parser("push")
-    p.add_argument("files", nargs="*")
-    p.set_defaults(func=cmd_push)
-    sub.add_parser("restart").set_defaults(func=cmd_restart)
     args = parser.parse_args()
     args.func(args)
 
