@@ -9,11 +9,15 @@
 - `resonance_tester` probe point -> bed center (175,175); `PRINT_END` parks at rear center of the 350 bed;
   `G32` uses axis limits; `PRINT_START` no longer re-waits for the bed.
 
+## Done (2026-09-29 PRINT_START)
+- Material-aware PRINT_START (soak, chamber fans, Smart Park), fans off on PRINT_END/cancel; Orca passes MATERIAL/CHAMBER.
+- Pi uses `allow-hotplug can0`.
+
 ## Open
-- `PRINT_START`: add heat soak / chamber temperature wait, material-dependent behavior (pass MATERIAL/CHAMBER from Orca).
-- `SMART_PARK` (KAMP) is included but unused; could park near the print while the nozzle heats in PRINT_START.
+- Add a chamber thermistor: define `[temperature_sensor chamber]`, set `variable_chamber_sensor: 'chamber'` in
+  `_PRINT_VARS`, and set chamber temps in the Orca ABS/ASA filament profiles (currently 0) - PRINT_START then waits
+  for the chamber instead of the timed soak.
+- The heat soak is a chain of G4 dwells inside PRINT_START, so CANCEL from Mainsail only takes effect after it ends
+  (emergency stop still works immediately).
 - `moonraker.conf`: `192.168.0.0/16` listed twice in `trusted_clients`.
 - `fan_generic 4W_FAN0` on the EBB: confirm whether anything is connected, else remove.
-- **Pi: set `allow-hotplug can0`** in /etc/network/interfaces.d/can0 (currently `auto can0`). The M8P is the
-  USB-CAN bridge; any MCU reset (FIRMWARE_RESTART, or Klipper auto-reset on config CRC change after a deploy)
-  re-enumerates USB and can0 stays DOWN until `sudo ip link set can0 up type can bitrate 1000000`.
