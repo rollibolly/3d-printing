@@ -1,7 +1,7 @@
 {
     "from": "User",
     "inherits": "Voron Voron 2.4 350 0.4 nozzle",
-    "machine_start_gcode": "M104 S0 ; Stops OrcaSlicer from sending temp waits separately\nM140 S0\nPRINT_START EXTRUDER_TEMP=[nozzle_temperature_initial_layer] BED_TEMP=[bed_temperature_initial_layer_single]",
+    "machine_start_gcode": "M104 S0 ; Stops OrcaSlicer from sending temp waits separately\nM140 S0\nPRINT_START EXTRUDER_TEMP=[nozzle_temperature_initial_layer] BED_TEMP=[bed_temperature_initial_layer_single] MATERIAL=[filament_type[initial_extruder]] CHAMBER=[chamber_temperature[initial_extruder]]",
     "name": "Voron 0.4 nozzle",
     "print_host": "Voron",
     "printer_extruder_id": [

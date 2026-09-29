@@ -10,7 +10,6 @@ import argparse
 import json
 import os
 import re
-import shutil
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -43,7 +42,7 @@ def main():
             raise SystemExit(f"{rel} contains print host credentials; refusing to export")
         dest = DEST / rel
         dest.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(src, dest)
+        dest.write_bytes(src.read_bytes().replace(b"\r\n", b"\n"))
         exported.add(dest)
         print(f"exported {rel.as_posix()}")
     if args.prune:
