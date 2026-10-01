@@ -12,12 +12,11 @@
 ## Done (2026-09-29 PRINT_START)
 - Material-aware PRINT_START (soak, chamber fans, Smart Park), fans off on PRINT_END/cancel; Orca passes MATERIAL/CHAMBER.
 - Pi uses `allow-hotplug can0`.
+- Heat soak is manual (`HEAT_SOAK` / `CANCEL_HEAT_SOAK`, non-blocking); PRINT_START never soaks.
+- `M106` ignores slicer fan indexes (Orca's `M106 P3` used to drive the part fan).
 
 ## Open
 - Add a chamber thermistor: define `[temperature_sensor chamber]`, set `variable_chamber_sensor: 'chamber'` in
-  `_PRINT_VARS`, and set chamber temps in the Orca ABS/ASA filament profiles (currently 0) - PRINT_START then waits
-  for the chamber instead of the timed soak.
-- The heat soak is a chain of G4 dwells inside PRINT_START, so CANCEL from Mainsail only takes effect after it ends
-  (emergency stop still works immediately).
+  `_PRINT_VARS`; `HEAT_SOAK CHAMBER=<C>` then waits for the chamber instead of the timer.
 - `moonraker.conf`: `192.168.0.0/16` listed twice in `trusted_clients`.
 - `fan_generic 4W_FAN0` on the EBB: confirm whether anything is connected, else remove.
