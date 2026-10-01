@@ -17,6 +17,11 @@
 ## Done (2026-10-01)
 - Removed unused `fan_generic 4W_FAN0` (0 RPM on its tachometer) and the duplicate Moonraker trusted client.
 
+## Done (2026-10-01 lights)
+- STATUS_* macros only stop the toolhead's effects (a bare STOP_LED_EFFECTS used to kill the chamber strip too).
+- Chamber strip follows printer status (led_effects/chamber_led_effects.cfg); caselight on during prints, off 10 min after.
+- PRINT_END parks 50mm above the bed (or 10mm above a taller print).
+
 ## Open
 - Install `host/etc/systemd/system/can-init.service` on the Pi so can0 comes back after M8P resets
   (`allow-hotplug` had no effect: ifupdown isn't installed, can0 is brought up by can-init.service at boot only).

@@ -8,9 +8,9 @@ Version-controlled configuration and notes for my custom Voron 2.4 (hostname `vo
 config/          Mirror of ~/printer_data/config on the printer (the live Klipper/Moonraker config)
   printer.cfg      includes + general limits (+ SAVE_CONFIG block: PID, z_offset, input shaper, mesh)
   hardware/        mcu, steppers, toolhead (extruder/probe/adxl), bed (heater/QGL/mesh), fans, lights
-  macros/          our gcode macros: printing (PRINT_START/END), leveling, parking; all auto-included
+  macros/          our gcode macros: printing (PRINT_START/END), heat_soak, leveling, parking, fans; all auto-included
   KAMP/            KAMP line purge + smart park (copied files, not the symlinked upstream)
-  led_effects/     Stealthburner LED effects + STATUS_* macros
+  led_effects/     Stealthburner LED effects + STATUS_* macros; chamber strip effects
   moonraker.conf, crowsnest.conf, sonar.conf, KlipperScreen.conf
 scripts/         Tooling that runs on this PC
   sync.py          pull printer config into the repo / show differences (Moonraker API)
