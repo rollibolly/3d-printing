@@ -1,0 +1,21 @@
+# Brings can0 up whenever it appears, not just at boot.
+# The Manta M8P is the USB-CAN bridge: every MCU reset (FIRMWARE_RESTART, or Klipper's automatic reset after a
+# config change alters the MCU config CRC) re-enumerates it on USB, and can0 comes back DOWN.
+# Binding to the device unit makes systemd stop this service when can0 vanishes and start it again when it returns.
+# (ifupdown isn't installed on this Debian 13 image, so /etc/network/interfaces.d/can0 is not used.)
+#
+# Install:  sudo cp can-init.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl reenable can-init.service
+
+[Unit]
+Description=Initialize CAN bus
+BindsTo=sys-subsystem-net-devices-can0.device
+After=sys-subsystem-net-devices-can0.device
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/ip link set can0 up type can bitrate 1000000
+ExecStart=/usr/sbin/ip link set can0 txqueuelen 1024
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sys-subsystem-net-devices-can0.device

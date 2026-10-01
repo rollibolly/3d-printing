@@ -16,6 +16,7 @@ scripts/         Tooling that runs on this PC
   sync.py          pull printer config into the repo / show differences (Moonraker API)
   deploy.py        deploy config/ to the printer with safety checks, restarts and auto-rollback
   export_orca.py   copy OrcaSlicer Voron profiles into slicer/orca/
+host/            System files from the Pi (e.g. host/etc/systemd/system/can-init.service), installed by hand
 docs/            Hardware notes, wiring, decisions, TODOs
 calibration/     (when needed) input shaper graphs, PA/flow tests, PID results, with dates
 slicer/orca/     OrcaSlicer user profiles (machine / filament / process), exported from %APPDATA%
